@@ -10,19 +10,19 @@
 
 class csv_table : public table {
 public:
-    void put_next(const std::string& num_of_record, const std::string& value) override final;
+    void put(const std::string& record_number, const std::string& column_name, const std::string& value) override final;
     std::string get_cell_value(const std::string& cell_address) override final;
     bool cell_exist(const std::string& cell_address) override final;
     void set_header(const std::vector<std::string>& header) override final;
 
+    std::vector<std::pair<std::string, std::string>> get_expressions();
     std::string to_csv();
 
 private:
-    static int num_of_cells;
-
     std::vector<std::string> column_names;
     std::vector<std::string> record_numbers;
     std::map<std::string, std::string> table;
+    std::vector<std::pair<std::string, std::string>> expressions;
 };
 
 

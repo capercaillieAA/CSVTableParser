@@ -8,5 +8,6 @@ int main(int argc, const char **argv) {
     csv_table table;
 
     reader.read(table);
+    //auto expressions = table.get_expressions();
     std::cout << table.to_csv();
 }

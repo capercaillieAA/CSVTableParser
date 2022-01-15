@@ -12,7 +12,7 @@ class table {
 public:
     virtual ~table() = default;
 
-    virtual void put_next(const std::string& num_of_record, const std::string& value) = 0;
+    virtual void put(const std::string& record_number, const std::string& column_name, const std::string& value) = 0;
     virtual std::string get_cell_value(const std::string& cell_address) = 0;
     virtual bool cell_exist(const std::string& cell_address) = 0;
     virtual void set_header(const std::vector<std::string>& header) = 0;

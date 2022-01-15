@@ -3,16 +3,18 @@
 //
 
 #include "csv_table.h"
+#include <algorithm>
 
-int csv_table::num_of_cells = 0;
-
-void csv_table::put_next(const std::string& num_of_record, const std::string& value) {
-    if (num_of_cells % column_names.size() == 0){
-        record_numbers.push_back(num_of_record);
+void csv_table::put(const std::string& record_number, const std::string& column_name, const std::string& value) {
+    if (std::find(record_numbers.begin(), record_numbers.end(), record_number) == record_numbers.end()){
+        record_numbers.push_back(record_number);
     }
-    auto cell_address = column_names[num_of_cells % column_names.size()] + num_of_record;
+
+    auto cell_address = column_name + record_number;
+    if (value.starts_with('=')) {
+        expressions.emplace_back(cell_address, value);
+    }
     table[cell_address] = value;
-    num_of_cells++;
 }
 
 std::string csv_table::get_cell_value(const std::string& cell_address) {
@@ -25,6 +27,10 @@ bool csv_table::cell_exist(const std::string& cell_address) {
 
 void csv_table::set_header(const std::vector<std::string> &header) {
     column_names = header;
+}
+
+std::vector<std::pair<std::string, std::string>> csv_table::get_expressions() {
+    return expressions;
 }
 
 std::string csv_table::to_csv() {

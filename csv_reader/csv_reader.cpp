@@ -28,7 +28,8 @@ bool csv_reader::read(table& dest) {
             auto num_of_record = cur_str[0];
 
             for (int j = 1; j < cur_str.size(); ++j) {
-                dest.put_next(num_of_record, cur_str[j]);
+                auto column_name = table_header[(j - 1) % table_header.size()];
+                dest.put(num_of_record, column_name, cur_str[j]);
             }
         }
 
