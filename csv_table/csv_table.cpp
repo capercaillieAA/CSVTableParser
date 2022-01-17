@@ -3,6 +3,7 @@
 //
 
 #include "csv_table.h"
+#include "../csv_calculator/bin_expression.h"
 #include <algorithm>
 
 void csv_table::put(const std::string& record_number, const std::string& column_name, const std::string& value) {
@@ -12,7 +13,7 @@ void csv_table::put(const std::string& record_number, const std::string& column_
 
     auto cell_address = column_name + record_number;
     if (value.starts_with('=')) {
-        expressions.emplace_back(cell_address, value);
+        expressions.emplace_back(cell_address, new bin_expression(value));
     }
     table[cell_address] = value;
 }
@@ -29,7 +30,7 @@ void csv_table::set_header(const std::vector<std::string> &header) {
     column_names = header;
 }
 
-std::vector<std::pair<std::string, std::string>> csv_table::get_expressions() {
+std::vector<std::pair<std::string, expression*>> csv_table::get_expressions() {
     return expressions;
 }
 
@@ -53,6 +54,4 @@ std::string csv_table::to_csv() {
 
     return csv_result;
 }
-
-
 

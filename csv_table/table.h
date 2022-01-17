@@ -7,8 +7,9 @@
 
 #include <string>
 #include <vector>
+#include "../csv_calculator/computable.h"
 
-class table {
+class table : public computable {
 public:
     virtual ~table() = default;
 

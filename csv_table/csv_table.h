@@ -15,14 +15,15 @@ public:
     bool cell_exist(const std::string& cell_address) override final;
     void set_header(const std::vector<std::string>& header) override final;
 
-    std::vector<std::pair<std::string, std::string>> get_expressions();
+    std::vector<std::pair<std::string, expression*>> get_expressions() override final;
+
     std::string to_csv();
 
 private:
     std::vector<std::string> column_names;
     std::vector<std::string> record_numbers;
     std::map<std::string, std::string> table;
-    std::vector<std::pair<std::string, std::string>> expressions;
+    std::vector<std::pair<std::string, expression*>> expressions;
 };
 
 
