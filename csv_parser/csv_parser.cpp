@@ -4,19 +4,17 @@
 
 #include "csv_parser.h"
 
-std::vector<std::string> csv_parser::parse_csv_str(std::string csv_str) {
+std::vector<std::string> csv_parser::parse(const std::string& csv_str, const std::string& delims) {
     auto result_str_set = std::vector<std::string>();
 
     std::string cur_str;
-    for (const auto symb : csv_str){
-        if (symb == ',') {
+    for (const auto symb : csv_str) {
+        if (delims.find(symb) != std::string::npos) {
             if (!cur_str.empty()) {
                 result_str_set.emplace_back(cur_str);
                 cur_str = "";
-                continue;
             }
-        }
-        else {
+        } else {
             cur_str += symb;
         }
     }

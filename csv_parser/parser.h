@@ -12,7 +12,7 @@ class parser {
 public:
     virtual ~parser() = default;
 
-    virtual std::vector<std::string> parse_csv_str(std::string csv_str) = 0;
+    virtual std::vector<std::string> parse(const std::string& str, const std::string& delims) = 0;
 };
 
 

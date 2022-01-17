@@ -17,7 +17,7 @@ public:
     csv_reader(const csv_reader& other) = delete;
     csv_reader& operator=(const csv_reader& other) = delete;
 
-    bool read(table& dest) override final;
+    bool read(table& csv_table) override final;
 
 private:
     std::vector<std::string> read_strings();

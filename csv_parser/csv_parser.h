@@ -9,7 +9,7 @@
 
 class csv_parser : public parser {
 public:
-    std::vector<std::string> parse_csv_str(std::string csv_str) override final;
+    std::vector<std::string> parse(const std::string& csv_str, const std::string& delims) override final;
 };
 
 
