@@ -1,5 +1,6 @@
 #include "csv_reader/csv_reader.h"
 #include "csv_table/csv_table.h"
+#include "csv_calculator/csv_calculator.h"
 #include <iostream>
 
 int main(int argc, const char **argv) {
@@ -8,6 +9,8 @@ int main(int argc, const char **argv) {
     csv_table table;
 
     reader.read(table);
-    //auto expressions = table.get_expressions();
+
+    csv_calculator calculator;
+    calculator.calculate(table);
     std::cout << table.to_csv();
 }
