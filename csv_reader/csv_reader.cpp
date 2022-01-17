@@ -20,14 +20,11 @@ bool csv_reader::read(table& csv_table) {
     if (csv_file.is_open()) {
         auto set_of_strings = read_strings();
         auto str_table_header = set_of_strings[0];
-
         auto table_header = parser->parse(str_table_header, ",");
-        csv_table.set_header(table_header);
 
         for (int i = 1; i < set_of_strings.size(); ++i) {
             auto cur_str = parser->parse(set_of_strings[i], ",");
             auto num_of_record = cur_str[0];
-
             for (int j = 1; j < cur_str.size(); ++j) {
                 auto column_name = table_header[(j - 1) % table_header.size()];
                 csv_table.put(num_of_record, column_name, cur_str[j]);

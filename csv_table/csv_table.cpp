@@ -10,11 +10,17 @@ void csv_table::put(const std::string& record_number, const std::string& column_
     if (std::find(record_numbers.begin(), record_numbers.end(), record_number) == record_numbers.end()){
         record_numbers.push_back(record_number);
     }
+    if (std::find(column_names.begin(), column_names.end(), column_name) == column_names.end()){
+        column_names.push_back(column_name);
+    }
 
     auto cell_address = column_name + record_number;
     if (value.starts_with('=')) {
-        expressions.emplace_back(cell_address, new bin_expression(value));
+        expressions[cell_address] = new bin_expression(value);
     }
+    table[cell_address] = value;
+}
+void csv_table::put(const std::string &cell_address, const std::string &value) {
     table[cell_address] = value;
 }
 
@@ -26,11 +32,7 @@ bool csv_table::cell_exist(const std::string& cell_address) {
     return table.find(cell_address) != table.end();
 }
 
-void csv_table::set_header(const std::vector<std::string> &header) {
-    column_names = header;
-}
-
-std::vector<std::pair<std::string, expression*>> csv_table::get_expressions() {
+std::map<std::string, expression*> csv_table::get_expressions() {
     return expressions;
 }
 
