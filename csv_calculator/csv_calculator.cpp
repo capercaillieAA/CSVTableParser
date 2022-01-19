@@ -3,6 +3,7 @@
 //
 
 #include "csv_calculator.h"
+#include "bin_expression.h"
 
 bool csv_calculator::calculate(computable &csv_scr) {
     auto csv_table = dynamic_cast<table *>(&csv_scr);
@@ -44,6 +45,9 @@ bool csv_calculator::calculate(computable &csv_scr) {
                 return false;
             }
             auto func = expressions[cell]->get_operator();
+            if (dynamic_cast<bin_expression*>(expressions.at(cell))->is_division() && second_arg == 0){
+                return false;
+            }
 
             csv_table->put(cell, std::to_string(func(first_arg, second_arg)));
         }
@@ -94,12 +98,12 @@ int csv_calculator::convert_to_int(const argument &arg, const table& csv_table, 
         result = arg.get_as_number();
     }
     else{
-        auto first_arg = csv_table.get_cell_value(arg.get_as_str());
-        if (first_arg.empty()){
+        auto cell = csv_table.get_cell_value(arg.get_as_str());
+        if (cell.empty()){
             is_valid = false;
         }
         else {
-            result = std::stoi(first_arg);
+            result = std::stoi(cell);
         }
     }
 

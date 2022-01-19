@@ -23,8 +23,14 @@ bool csv_reader::read(table& csv_table) {
 
         for (int i = 1; i < set_of_strings.size(); ++i) {
             auto cur_str = parser->parse(set_of_strings[i], ",");
+            if (cur_str.size() - 1 != table_header.size()){
+                return false;
+            }
             auto num_of_record = cur_str[0];
             for (int j = 1; j < cur_str.size(); ++j) {
+                if (cur_str[j].empty()){
+                    return false;
+                }
                 auto column_name = table_header[(j - 1) % table_header.size()];
                 csv_table.put(num_of_record, column_name, cur_str[j]);
             }

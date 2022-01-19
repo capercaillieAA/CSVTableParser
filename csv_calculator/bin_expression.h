@@ -24,6 +24,8 @@ public:
     std::vector<argument> get_args() const override final;
     std::function<int(int, int)> get_operator() const override final;
 
+    bool is_division() const;
+
 private:
     static std::string operators;
 

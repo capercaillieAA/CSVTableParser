@@ -36,3 +36,7 @@ std::function<int(int, int)> bin_expression::get_operator() const {
 
     return func;
 }
+
+bool bin_expression::is_division() const {
+    return op == "/";
+}
