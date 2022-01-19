@@ -14,6 +14,7 @@ Then, to perform the build, you need to run the following command:<br/>
 To change the generator for a specific platform, you can use the command:<br/>
     
     cmake [options] -G <generator-name> -S <path-to-source> -B <path-to-build>
+    cmake --build <path-to-build>
 
 ### To run the program, run the following command:
 
