@@ -3,6 +3,7 @@
 //
 
 #include "argument.h"
+#include <algorithm>
 
 argument::argument(const std::string &str) : arg_value(str){
 }

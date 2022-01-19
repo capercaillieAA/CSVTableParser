@@ -9,13 +9,13 @@ bool csv_calculator::calculate(computable &csv_scr) {
     auto expressions = csv_table->get_expressions();
     fill_graph(expressions);
 
-    auto num_of_nodes = calc_graph.size();
+    unsigned int num_of_nodes = calc_graph.size();
     auto sorted_nodes = std::vector<std::string>(num_of_nodes);
     auto marked_nodes = std::unordered_set<std::string>();
 
     auto start_place = num_of_nodes - 1;
     for (const auto &node : calc_graph) {
-        if (!marked_nodes.contains(node.first)) {
+        if (marked_nodes.find(node.first) == marked_nodes.end()) {
             if (!check_acyclicity(node.first, marked_nodes)){
                 return false;
             }
@@ -26,7 +26,7 @@ bool csv_calculator::calculate(computable &csv_scr) {
     marked_nodes.clear();
 
     for (const auto &node : calc_graph) {
-        if (!marked_nodes.contains(node.first)) {
+        if (marked_nodes.find(node.first) == marked_nodes.end()) {
             top_sort(node.first, marked_nodes, sorted_nodes, start_place);
         }
     }
@@ -54,7 +54,7 @@ bool csv_calculator::calculate(computable &csv_scr) {
 
 void csv_calculator::fill_graph(const std::map<std::string, expression*>& expressions) {
     for (const auto& expr : expressions){
-        if (!calc_graph.contains(expr.first)) {
+        if (calc_graph.find(expr.first) == calc_graph.end()) {
             calc_graph[expr.first] = std::vector<std::string>();
         }
         for (const auto& arg : expr.second->get_args()){
@@ -66,7 +66,7 @@ void csv_calculator::fill_graph(const std::map<std::string, expression*>& expres
 }
 
 bool csv_calculator::check_acyclicity(const std::string& beg_node, std::unordered_set<std::string>& marked_nodes) const {
-    if (marked_nodes.contains(beg_node)){
+    if (marked_nodes.find(beg_node) != marked_nodes.end()){
         return false;
     }
     marked_nodes.emplace(beg_node);
@@ -80,7 +80,7 @@ bool csv_calculator::check_acyclicity(const std::string& beg_node, std::unordere
 void csv_calculator::top_sort(const std::string& beg_node, std::unordered_set<std::string>& marked_nodes, std::vector<std::string>& sorted_nodes, unsigned int& place_of_node) const {
     marked_nodes.emplace(beg_node);
     for (const auto& node : calc_graph.at(beg_node)){
-        if (!marked_nodes.contains(node)){
+        if (marked_nodes.find(node) == marked_nodes.end()){
             top_sort(node, marked_nodes, sorted_nodes, place_of_node);
         }
     }

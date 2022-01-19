@@ -4,7 +4,6 @@
 
 #include "csv_table.h"
 #include "../csv_calculator/bin_expression.h"
-#include <algorithm>
 
 void csv_table::put(const std::string& record_number, const std::string& column_name, const std::string& value) {
     if (std::find(record_numbers.begin(), record_numbers.end(), record_number) == record_numbers.end()){
@@ -15,7 +14,7 @@ void csv_table::put(const std::string& record_number, const std::string& column_
     }
 
     auto cell_address = column_name + record_number;
-    if (value.starts_with('=')) {
+    if (value[0] == '=') {
         expressions[cell_address] = new bin_expression(value);
     }
     table[cell_address] = value;
