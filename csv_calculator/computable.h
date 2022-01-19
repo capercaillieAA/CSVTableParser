@@ -6,13 +6,12 @@
 #define CSVTABLEPARSER_COMPUTABLE_H
 
 #include <map>
-#include <string>
 #include "expression.h"
 
 class computable{
 public:
     virtual ~computable() = default;
 
-    virtual std::map<std::string, expression*> get_expressions() = 0;
+    virtual std::map<std::string, expression*> get_expressions() const = 0;
 };
 #endif //CSVTABLEPARSER_COMPUTABLE_H

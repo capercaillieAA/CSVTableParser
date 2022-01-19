@@ -6,18 +6,17 @@
 #define CSVTABLEPARSER_CSV_TABLE_H
 
 #include "table.h"
-#include <map>
 
 class csv_table : public table {
 public:
     void put(const std::string& record_number, const std::string& column_name, const std::string& value) override final;
     void put(const std::string &cell_address, const std::string &value) override;
-    std::string get_cell_value(const std::string& cell_address) override final;
-    bool cell_exist(const std::string& cell_address) override final;
+    std::string get_cell_value(const std::string& cell_address) const override final;
+    bool cell_exist(const std::string& cell_address) const override final;
 
-    std::map<std::string, expression*> get_expressions() override final;
+    std::map<std::string, expression*> get_expressions() const override final;
 
-    std::string to_csv();
+    std::string to_csv() const;
 
 private:
     std::vector<std::string> column_names;

@@ -4,7 +4,6 @@
 
 #include "csv_reader.h"
 #include "../csv_parser/csv_parser.h"
-#include "../csv_table/csv_table.h"
 
 csv_reader::csv_reader(const std::string& file_name) {
     csv_file.open(file_name);

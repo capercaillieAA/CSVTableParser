@@ -8,9 +8,18 @@ int main(int argc, const char **argv) {
     csv_reader reader(file_name);
     csv_table table;
 
-    reader.read(table);
+    auto read_checker = reader.read(table);
+    if (!read_checker){
+        std::cout << "The specified file was not found or the table is set in the wrong format";
+        return 0;
+    }
 
     csv_calculator calculator;
-    calculator.calculate(table);
+    auto calc_checker = calculator.calculate(table);
+    if (!calc_checker){
+        std::cout << "The calculation cannot be performed";
+        return 0;
+    }
+
     std::cout << table.to_csv();
 }

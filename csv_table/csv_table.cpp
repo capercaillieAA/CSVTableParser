@@ -24,19 +24,19 @@ void csv_table::put(const std::string &cell_address, const std::string &value) {
     table[cell_address] = value;
 }
 
-std::string csv_table::get_cell_value(const std::string& cell_address) {
-    return cell_exist(cell_address) ? table[cell_address] : "";
+std::string csv_table::get_cell_value(const std::string& cell_address) const {
+    return cell_exist(cell_address) ? table.at(cell_address) : "";
 }
 
-bool csv_table::cell_exist(const std::string& cell_address) {
+bool csv_table::cell_exist(const std::string& cell_address) const {
     return table.find(cell_address) != table.end();
 }
 
-std::map<std::string, expression*> csv_table::get_expressions() {
+std::map<std::string, expression*> csv_table::get_expressions() const {
     return expressions;
 }
 
-std::string csv_table::to_csv() {
+std::string csv_table::to_csv() const {
     std::string csv_result;
 
     for (const auto& column_name : column_names){
