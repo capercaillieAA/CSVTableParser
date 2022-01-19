@@ -11,7 +11,7 @@ class calculator{
 public:
     virtual ~calculator() = default;
 
-    virtual void calculate(computable& source) = 0;
+    virtual bool calculate(computable& source) = 0;
 };
 
 #endif //CSVTABLEPARSER_CALCULATOR_H
